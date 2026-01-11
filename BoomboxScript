@@ -1,171 +1,4 @@
-local HttpService = game:GetService("HttpService")
-
-local SAVE_FILE = "boombox_favorites.json"
-
-local Songs = {
-    {Name="Phonk Drift", ID="9048375035"},
-    {Name="UK Drill Beat", ID="1845743409"},
-    {Name="Trap Beat", ID="6872842164"},
-    {Name="Vine Boom", ID="6308606111"},
-    {Name="Bruh Sound", ID="154644936"},
-    {Name="Bass Boost", ID="142376088"},
-    {Name="Go Go’s – Vacation (Nightcore)", ID="7533239868"},
-    {Name="Bach – Toccata & Fugue in D Minor", ID="564238335"},
-    {Name="AC/DC – Thunderstruck", ID="146961487"},
-    {Name="Beethoven – Fur Elise", ID="450051032"},
-    {Name="Ariana Grande – God Is a Woman", ID="2071829884"},
-    {Name="Megan Thee Stallion – Body", ID="5984932122"},
-    {Name="Lil Nas X – Panini", ID="3345557951"},
-    {Name="Billie Eilish – NDA", ID="7079888477"},
-    {Name="Imagine Dragons – Believer", ID="2389193148"},
-    {Name="Beethoven – Moonlight Sonata (1st Movement)", ID="445023353"},
-    {Name="Ed Sheeran – Bad Habits", ID="7202579511"},
-    {Name="Luis Fonsi – Despacito", ID="673605737"},
-    {Name="The Rolling Stones – Paint It Black", ID="6828176320"},
-    {Name="Green Day – Basket Case", ID="3449839683"},
-    {Name="Lady Gaga – Applause", ID="130964099"},
-    {Name="Spooky Scary Skeletons", ID="515669032"},
-    {Name="Drake – God’s Plan", ID="2201067635"},
-    {Name="A-ha – Take On Me", ID="4606705490"},
-    {Name="Juice WRLD – Lucid Dreams", ID="8036100972"},
-    {Name="Black Eyed Peas – Let’s Get It Started", ID="138134680"},
-    {Name="Squid Game – Theme", ID="7535587224"},
-    {Name="Ava Max – My Head & My Heart", ID="6032653117"},
-    {Name="Coolio – Gangsta’s Paradise", ID="6070263388"},
-    {Name="System Of A Down – Chop Suey", ID="4556134799"},
-    {Name="Glass Animals – Heat Waves", ID="6432181830"},
-    {Name="Childish Gambino – This Is America", ID="2062482384"},
-    {Name="BTS – Dynamite", ID="6257627378"},
-    {Name="Jason Derulo – Savage Love", ID="5458852845"},
-    {Name="Justin Bieber – Yummy", ID="4591688095"},
-    {Name="Soft Jazz", ID="926493242"},
-    {Name="Better Call Saul – Theme", ID="2801308469"},
-    {Name="Zara Larsson – Never Forget You", ID="421205210"},
-    {Name="Rihanna – SOS", ID="6901063458"},
-    {Name="Queen – Bohemian Rhapsody", ID="4587240503"},
-    {Name="Debussy – Claire De Lune", ID="1838457617"},
-    {Name="Nintendo – Mii Channel Music", ID="143666548"},
-    {Name="BTS – Butter", ID="6844912719"},
-    {Name="Lil Nas X – Industry Baby", ID="7253841629"},
-    {Name="Linkin Park – In The End", ID="5466923389"},
-    {Name="Maroon 5 – Payphone", ID="131396974"},
-    {Name="Playboi Carti – They Tryna Be Cray", ID="6917155909"},
-    {Name="24kGoldn – Mood", ID="5519565135"},
-    {Name="Doja Cat – Like That (Instrumental)", ID="4656290260"},
-    {Name="Foster The People – Pumped Up Kicks", ID="2694148776"},
-    {Name="JoJo’s Bizarre Adventure – Awaken", ID="1342075752"},
-    {Name="Ashnikko – Daisy", ID="5321298199"},
-    {Name="Boney M – Rasputin", ID="5512350519"},
-    {Name="Belly Dancer x Temperature", ID="8055519816"},
-    {Name="Billie Eilish – Everything I Wanted", ID="4380429016"},
-    {Name="Gorillaz – Clint Eastwood", ID="497213766"},
-    {Name="Kelis – Milkshake", ID="321199908"},
-    {Name="Eminem – Without Me (Instrumental)", ID="6689996382"},
-    {Name="Doja Cat – Say So", ID="521116871"},
-    {Name="Michael Jackson – Smooth Criminal", ID="4883181281"},
-    {Name="Slipknot – Duality", ID="4849198097"},
-    {Name="Masked Wolf – Astronaut In The Ocean", ID="6422642623"},
-    {Name="The Anxiety – Meet Me At Our Spot", ID="7308941449"},
-    {Name="Baby Shark", ID="1272130833"},
-    {Name="AC/DC – Highway To Hell", ID="4728058875"},
-    {Name="Darude – Sandstorm", ID="166562385"},
-    {Name="Drake – Hotline Bling", ID="306352667"},
-    {Name="Ariana Grande – 34+35", ID="5882199576"},
-    {Name="Charli XCX – Boom Clap", ID="189739789"},
-    {Name="Maroon 5 – Moves Like Jagger", ID="291895335"},
-    {Name="Frozen – Let It Go", ID="189105508"},
-    {Name="LISA – Money", ID="7551431783"},
-    {Name="Hallelujah", ID="1846627271"},
-    {Name="Notorious B.I.G. – Big Poppa", ID="6209631384"},
-    {Name="Lukas Graham – 7 Years (Piano)", ID="433363239"},
-    {Name="Michael Jackson – Bad", ID="4577835343"},
-    {Name="GTA San Andreas – Theme", ID="4571975095"},
-    {Name="Olivia Rodrigo – Brutal", ID="6937354391"},
-    {Name="YNW Melly – No Heart", ID="2803924708"},
-    {Name="Amaarae – SAD GIRLZ LUV MONEY", ID="8026236684"},
-    {Name="SSBM – Final Destination", ID="2801308469"},
-    {Name="Kodak Black – For The Fame", ID="6781652588"},
-{Name="DEAF KEV – Invincible", ID="259816079"},
-{Name="Lost Sky – Vision", ID="3073775476"},
-{Name="Prismo – Weakness", ID="696691506"},
-{Name="Alan Walker – Fade [NCS]", ID="292315830"},
-{Name="JJD – Future", ID="1283379898"},
-{Name="Dirty Palm – Oblivion", ID="1221704843"},
-{Name="WATEVA – Ber Zer Ker", ID="2149254684"},
-{Name="Alan Walker – Spectre", ID="313726644"},
-{Name="Lost Sky – Dreams", ID="7547342615"},
-{Name="Diamond Eyes – Everything", ID="1613711615"},
-{Name="Electro-Light – Symbolism", ID="948704371"},
-{Name="Prismo – Stronger", ID="1384066755"},
-{Name="Robin Hustin – Light It Up (ft. Jex)", ID="2291227488"},
-{Name="Alan Walker – Fade (Full)", ID="531158940"},
-{Name="Zaza – Be Together", ID="599679668"},
-{Name="Diamond Eyes – Everything (Alt)", ID="163252235"},
-{Name="DEAF KEV – Invincible", ID="259816079"},
-{Name="Lost Sky – Vision", ID="3073775476"},
-{Name="Prismo – Weakness", ID="696691506"},
-{Name="Alan Walker – Fade [NCS]", ID="292315830"},
-{Name="JJD – Future", ID="1283379898"},
-{Name="Dirty Palm – Oblivion", ID="1221704843"},
-{Name="WATEVA – Ber Zer Ker", ID="2149254684"},
-{Name="Alan Walker – Spectre", ID="313726644"},
-{Name="Lost Sky – Dreams", ID="7547342615"},
-{Name="Diamond Eyes – Everything", ID="1613711615"},
-{Name="Electro-Light – Symbolism", ID="948704371"},
-{Name="Prismo – Stronger", ID="1384066755"},
-{Name="Robin Hustin – Light It Up (ft. Jex)", ID="2291227488"},
-{Name="Alan Walker – Fade (Full)", ID="531158940"},
-{Name="Zaza – Be Together", ID="599679668"},
-{Name="Diamond Eyes – Everything (Alt)", ID="163252235"},
-{Name="Si Zue", ID="1838880936"},
-{Name="Beastie Boys – Intergalactic", ID="131603357"},
-{Name="Bob Seger – Mainstreet", ID="477304028"},
-{Name="Claude Debussy – Claire De Lune", ID="1838457617"},
-{Name="Coolio – Gangsta's Paradise", ID="6070263388"},
-{Name="Dream Girl – nMisaki", ID="15689457918"},
-{Name="Eminem – Without Me", ID="6689996382"},
-{Name="I'm Tickled Pink – Jack Shaindlin", ID="1837485466"},
-{Name="Jason Derulo – Trumpets", ID="146237847"},
-{Name="Jason Derulo – Watcha Say", ID="168208965"},
-{Name="Studio Killers – Jenny", ID="170103636"},
-{Name="Lana Del Rey – Doin' Time", ID="8856712814"},
-{Name="Lil Pump – Gucci Gang", ID="2547598538"},
-{Name="Florida Georgia Line – May We All", ID="628874064"},
-{Name="Money, Money, Money – Meryl Streep", ID="1000123073"},
-{Name="Michael Jackson – Smooth Criminal", ID="4883181281"},
-{Name="Pokémon – Who's That Pokémon?", ID="130767090"},
-{Name="Squid Game – Theme Song", ID="7535587224"},
-{Name="This Is Halloween – Disney", ID="349626331"},
-{Name="Wiz Khalifa – Black and Yellow", ID="139235100"},
-{Name="Bonk!", ID="130944130"},
-{Name="Boom Clap", ID="189739789"},
-{Name="Can You Hear Me", ID="4769589095"},
-{Name="Chicken Nugget", ID="9245561450"},
-{Name="Donald Glover – This Is America", ID="2062482384"},
-{Name="Everybody Do The Flop", ID="130778839"},
-{Name="Fart", ID="3068648094"},
-{Name="Get Hyper", ID="138855854"},
-{Name="Godzilla Roar", ID="130783046"},
-{Name="Hallelujah", ID="1846627271"},
-{Name="I’m Batman", ID="130769318"},
-{Name="I’m in My Mom’s Car", ID="170041353"},
-{Name="It's Raining Tacos", ID="142376088"},
-{Name="Just Dance", ID="15689443891"},
-{Name="Kid Rages In Minecraft", ID="2618158728"},
-{Name="Michael Jackson – Hee Hee", ID="3048623108"},
-{Name="Minions – Bee Doo Bee Doo Bee Doo", ID="130844390"},
-{Name="Sneeky 30", ID="1846531998"},
-{Name="Spongebob Stadium Rave", ID="1846368080"},
-{Name="Spooky, Scary Skeletons", ID="515669032"},
-{Name="This Is Sparta", ID="130781067"},
-{Name="Until Sunrise", ID="1836798379"},
-{Name="What Does the Fox Say", ID="147370160"},
-{Name="Windows XP", ID="1626996526"},
-{Name="You’ve Been Rick Rolled", ID="7363412529"},
-{Name="I Play Pokemon Go Everyday", ID="482886779"},
-{Name="Let It Go – Screamcore Remix", ID="189105508"},
-{Name="Mii Channel Music", ID="143666548"},
-{Name="Lucid Dream – Owl City", ID="1334988837"},
+, ID="1334988837"},
 {Name="Fortnite Hype Dance", ID="1833067414"},
 {Name="I'm the One (REMIX) – DJ Khaled ft. Justin Bieber", ID="1480129027"},
 {Name="Everytime We Touch – Nightcore", ID="2019855815"},
@@ -463,3 +296,234 @@ minimize.MouseButton1Click:Connect(function()
 end)
 
 refresh()
+--!strict
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- === Songs List (All merged) ===
+local Songs = {
+    {Name="I Play Pokemon Go Everyday", ID="482886779"},
+    {Name="WHO'S THAT POKEMON??", ID="130767090"},
+    {Name="Tokyo Drift Trap Remix – The Fast and The Furious", ID="1523885587"},
+    {Name="Krabs Beep Boop Remix", ID="1858223178"},
+    {Name="Fortnite Hype Dance", ID="1833067414"},
+    {Name="Kid Rages In Minecraft", ID="2618158728"},
+    {Name="when u die in minecraft", ID="2607544190"},
+    {Name="Just Dance", ID="15689443891"},
+    {Name="Uptown", ID="1845554017"},
+    {Name="Minions – Bee Doo Bee Doo Bee Doo", ID="130844390"},
+    {Name="Paradise Falls", ID="1837879082"},
+    {Name="Backrooms Ambiance (High Quality)", ID="7910582982"},
+    {Name="Lo ft Chill A", ID="9043887091"},
+    {Name="Anime/Video game reference overload – SpiralHero", ID="12885243769"},
+    {Name="YO MAMA – SNCKPCK", ID="11809110564"},
+    {Name="VHS VITAMINS – SNCKPCK", ID="11809103849"},
+    {Name="UnCraftableGaming – Baby Yoda", ID="11809102829"},
+    {Name="numbers – Yung Chaiboy", ID="11809065413"},
+    {Name="Looking Up – Chloe Parry", ID="11809040463"},
+    {Name="I'm Back Baby – Lil Boba", ID="11809028042"},
+    {Name="I love tater tots – GbAli", ID="11808902631"},
+    {Name="FIFA 22 – aahmek", ID="11808891048"},
+    {Name="crash bandicoot – 90tapes", ID="11808876109"},
+    {Name="chase – Yung Chaiboy", ID="11808873966"},
+    {Name="BENGALS BABY – GbAli", ID="11808871170"},
+    {Name="BACKFLIPPIN' DOGE – SNCKPCK", ID="11808870101"},
+    {Name="808s & Fortine ft. Deebruh – aahmek", ID="11808864915"},
+    {Name="roblox is down – UnCraftableGaming", ID="11793802002"},
+    {Name="Pizza – Yung Chaiboy", ID="11793514024"},
+    {Name="Chicken Nuggies Rap – Kat Padlan", ID="11793494513"},
+    {Name="Cello Suite 1 In G Major – Jack Trammell", ID="11780415090"},
+    {Name="Shotgun Showdown – Damned Anthem", ID="11780333101"},
+    {Name="Ode To Joy – Damned Anthem", ID="11780324805"},
+    {Name="DEAF KEV – Invincible", ID="259816079"},
+    {Name="Lost Sky – Vision", ID="3073775476"},
+    {Name="Prismo – Weakness", ID="696691506"},
+    {Name="Alan Walker – Fade [NCS]", ID="292315830"},
+    {Name="JJD – Future", ID="1283379898"},
+    {Name="Dirty Palm – Oblivion", ID="1221704843"},
+    {Name="WATEVA – Ber Zer Ker", ID="2149254684"},
+    {Name="Alan Walker – Spectre", ID="313726644"},
+    {Name="Lost Sky – Dreams", ID="7547342615"},
+    {Name="Diamond Eyes – Everything", ID="1613711615"},
+    {Name="Electro-Light – Symbolism", ID="948704371"},
+    {Name="Prismo – Stronger", ID="1384066755"},
+    {Name="Robin Hustin – Light It Up (ft. Jex)", ID="2291227488"},
+    {Name="Alan Walker – Fade Full", ID="531158940"},
+    {Name="Zaza – Be Together", ID="599679668"},
+    {Name="Diamond Eyes – Everything (Alt)", ID="163252235"},
+    {Name="Bonk!", ID="130944130"},
+    {Name="Boom Clap", ID="189739789"},
+    {Name="Can You Hear Me", ID="4769589095"},
+    {Name="Chicken Nugget", ID="9245561450"},
+    {Name="Donald Glover – This Is America", ID="2062482384"},
+    {Name="Everybody Do The Flop", ID="130778839"},
+    {Name="Fart", ID="3068648094"},
+    {Name="Get Hyper", ID="138855854"},
+    {Name="Godzilla Roar", ID="130783046"},
+    {Name="Hallelujah", ID="1846627271"},
+    {Name="I’m Batman", ID="130769318"},
+    {Name="I’m in My Mom’s Car", ID="170041353"},
+    {Name="It's Raining Tacos", ID="142376088"},
+    {Name="Lucid Dreams – Juice WRLD", ID="8036100972"},
+    {Name="Industry Baby – Lil Nas X", ID="7253841629"},
+    {Name="Sandstorm – Darude", ID="166562385"},
+    {Name="Heat Waves – Glass Animals", ID="6432181830"},
+    {Name="Rasputin – Boney M", ID="5512350519"},
+    {Name="Butter – BTS", ID="6844912719"},
+    {Name="Trap Queen – Fetty Wap", ID="210783060"},
+    {Name="Payphone – Maroon 5", ID="131396974"},
+    {Name="Despacito – Luis Fonsi", ID="673605737"},
+    {Name="Yummy – Justin Bieber", ID="4591688095"},
+    {Name="Raining Tacos – Parry Gripp", ID="142376088"},
+}
+
+-- Favorites storage
+local Favorites = {}
+
+-- === GUI ===
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "BoomboxUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 450, 0, 550)
+MainFrame.Position = UDim2.new(0.5, -225, 0.5, -275)
+MainFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+MainFrame.Parent = ScreenGui
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,0,0,50)
+Title.Position = UDim2.new(0,0,0,0)
+Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Title.Text = "Boombox Hub"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 28
+Title.Parent = MainFrame
+
+-- Tabs
+local TabsFrame = Instance.new("Frame")
+TabsFrame.Size = UDim2.new(1,0,0,40)
+TabsFrame.Position = UDim2.new(0,0,0,50)
+TabsFrame.BackgroundTransparency = 1
+TabsFrame.Parent = MainFrame
+
+local AllBtn = Instance.new("TextButton")
+AllBtn.Text = "All Songs"
+AllBtn.Size = UDim2.new(0,225,1,0)
+AllBtn.Position = UDim2.new(0,0,0,0)
+AllBtn.BackgroundColor3 = Color3.fromRGB(60,60,60)
+AllBtn.TextColor3 = Color3.fromRGB(255,255,255)
+AllBtn.Font = Enum.Font.SourceSans
+AllBtn.TextSize = 20
+AllBtn.Parent = TabsFrame
+
+local FavBtn = Instance.new("TextButton")
+FavBtn.Text = "Favorites"
+FavBtn.Size = UDim2.new(0,225,1,0)
+FavBtn.Position = UDim2.new(0,225,0,0)
+FavBtn.BackgroundColor3 = Color3.fromRGB(60,60,60)
+FavBtn.TextColor3 = Color3.fromRGB(255,255,255)
+FavBtn.Font = Enum.Font.SourceSans
+FavBtn.TextSize = 20
+FavBtn.Parent = TabsFrame
+
+-- Search Bar
+local SearchBar = Instance.new("TextBox")
+SearchBar.PlaceholderText = "Search..."
+SearchBar.Size = UDim2.new(1,-10,0,30)
+SearchBar.Position = UDim2.new(0,5,0,95)
+SearchBar.Parent = MainFrame
+
+-- Scrolling Frame
+local Scroll = Instance.new("ScrollingFrame")
+Scroll.Size = UDim2.new(1,0,1,-130)
+Scroll.Position = UDim2.new(0,0,0,130)
+Scroll.ScrollBarThickness = 8
+Scroll.BackgroundTransparency = 1
+Scroll.Parent = MainFrame
+
+-- Function to populate
+local function Populate(list)
+    Scroll:ClearAllChildren()
+    for i,song in pairs(list) do
+        local Btn = Instance.new("TextButton")
+        Btn.Size = UDim2.new(1,-10,0,30)
+        Btn.Position = UDim2.new(0,5,0,(i-1)*35)
+        Btn.Text = song.Name
+        Btn.Font = Enum.Font.SourceSans
+        Btn.TextSize = 18
+        Btn.TextColor3 = Color3.fromRGB(255,255,255)
+        Btn.BackgroundColor3 = Favorites[song.ID] and Color3.fromRGB(100,80,200) or Color3.fromRGB(40,40,40)
+        Btn.Parent = Scroll
+
+        Btn.MouseButton1Click:Connect(function()
+            setclipboard(song.ID)
+            warn("Copied "..song.Name.." ID: "..song.ID)
+        end)
+
+        Btn.MouseButton2Click:Connect(function()
+            if Favorites[song.ID] then
+                Favorites[song.ID] = nil
+                Btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
+            else
+                Favorites[song.ID] = song
+                Btn.BackgroundColor3 = Color3.fromRGB(100,80,200)
+            end
+        end)
+    end
+    Scroll.CanvasSize = UDim2.new(0,0,#list*35)
+end
+
+-- Initial population
+Populate(Songs)
+
+-- Tab Buttons
+AllBtn.MouseButton1Click:Connect(function()
+    Populate(Songs)
+end)
+FavBtn.MouseButton1Click:Connect(function()
+    local favList = {}
+    for _, song in pairs(Favorites) do
+        table.insert(favList,song)
+    end
+    Populate(favList)
+end)
+
+-- Search Filter
+SearchBar:GetPropertyChangedSignal("Text"):Connect(function()
+    local text = SearchBar.Text:lower()
+    local filtered = {}
+    for _, song in pairs(Songs) do
+        if string.find(song.Name:lower(), text) then
+            table.insert(filtered, song)
+        end
+    end
+    Populate(filtered)
+end)
+
+-- Minimize / Open
+local MinBtn = Instance.new("TextButton")
+MinBtn.Size = UDim2.new(0,50,0,30)
+MinBtn.Position = UDim2.new(1,-55,0,5)
+MinBtn.Text = "-"
+MinBtn.Parent = MainFrame
+
+local OpenBtn = Instance.new("TextButton")
+OpenBtn.Size = UDim2.new(0,100,0,30)
+OpenBtn.Position = UDim2.new(0.5,-50,0,10)
+OpenBtn.Text = "Open Boombox"
+OpenBtn.Visible = false
+OpenBtn.Parent = ScreenGui
+
+MinBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    OpenBtn.Visible = true
+end)
+OpenBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = true
+    OpenBtn.Visible = false
+end)
