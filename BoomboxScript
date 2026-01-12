@@ -1,39 +1,727 @@
-, ID="1334988837"},
-{Name="Fortnite Hype Dance", ID="1833067414"},
-{Name="I'm the One (REMIX) – DJ Khaled ft. Justin Bieber", ID="1480129027"},
-{Name="Everytime We Touch – Nightcore", ID="2019855815"},
-{Name="Tokyo Drift Trap Remix – The Fast and The Furious", ID="1523885587"},
-{Name="Krabs Beep Boop Remix", ID="1858223178"},
-{Name="God Is a Woman – Ariana Grande", ID="2071829884"},
-{Name="SAD GIRLZ LUV MONEY – Amaarae", ID="8026236684"},
-{Name="Daisy – Ashnikko", ID="5321298199"},
-{Name="Toccata & Fugue in D Minor – Bach", ID="564238335"},
-{Name="Belly Dancer x Temperature", ID="8055519816"},
-{Name="Tom Hillock – Story", ID="1843327"},
-{Name="Matthew Clark – Shut Up", ID="1843325"},
-{Name="Instrumental Roblox (9039953407)", ID="9039953407"},
-{Name="Instrumental Backround Beat", ID="300239694"},
-{Name="Instrumental (1681929615)", ID="1681929615"},
-{Name="Instrumental Music (274863394)", ID="274863394"},
-{Name="Hallway Swimmers – Home", ID="1843415"},
-{Name="Tom Hillock – Empire Waltz", ID="1843296"},
-{Name="Tom Hillock – Mama Mama", ID="1843318"},
-{Name="Patrick Moriceau – Mystery (feat. Lucy Kitchen)", ID="1843325"},
-{Name="Maestro João Batista Martins – Na Avenida", ID="1842514"},
-{Name="Hallway Swimmers – Take", ID="1843414"},
-{Name="La Fine Equipe – Relax (feat. Mattic, State of Mind)", ID="1837146"},
-{Name="Pajaro Canzani – Bailar la Cumbia", ID="1837241"},
-{Name="Favela Funk", ID="1841682637"},
-{Name="Brazilian Breakout", ID="1837671480"},
-{Name="Brazil Beats (b)", ID="1841952653"},
-{Name="Brazilian Fiesta", ID="1839554323"},
-{Name="God’s Plan – Drake", ID="1665926924"},
-{Name="Black And Yellow – Wiz Khalifa", ID="139235100"},
-{Name="Whatcha Say – Jason Derulo", ID="168208965"},
-{Name="Stronger – Kanye West", ID="136209425"},
-{Name="Intergalactic – Beastie Boys", ID="131603357"},
-{Name="Let’s Get It Started – Black Eyed Peas", ID="138134680"},
-{Name="Ooh Kill Em – Meek Mill", ID="139222895"},
+--// Premium Modern Boombox GUI | Full Copy-Paste | Draggable | Hover + Highlight | Mobile + PC
+
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+-- =========================
+-- 🎵 MUSIC ID LIBRARY
+-- =========================
+local MusicLibrary = {
+    {Name="Fortnite Hype Dance", Id="1833067414"},
+    {Name="I'm the One (REMIX) – DJ Khaled ft. Justin Bieber", Id="1480129027"},
+    {Name="Everytime We Touch – Nightcore", Id="2019855815"},
+    {Name="Tokyo Drift Trap Remix – The Fast and The Furious", Id="1523885587"},
+    {Name="Krabs Beep Boop Remix", Id="1858223178"},
+    {Name="God Is a Woman – Ariana Grande", Id="2071829884"},
+    {Name="SAD GIRLZ LUV MONEY – Amaarae", Id="8026236684"},
+    {Name="Daisy – Ashnikko", Id="5321298199"},
+    {Name="Toccata & Fugue in D Minor – Bach", Id="564238335"},
+    {Name="Belly Dancer x Temperature", Id="8055519816"},
+    {Name="Tom Hillock – Story", Id="1843327"},
+    {Name="Matthew Clark – Shut Up", Id="1843325"},
+    {Name="Instrumental Roblox", Id="9039953407"},
+    {Name="Instrumental Backround Beat", Id="300239694"},
+    {Name="Instrumental", Id="1681929615"},
+    {Name="Instrumental Music", Id="274863394"},
+    {Name="Hallway Swimmers – Home", Id="1843415"},
+    {Name="Tom Hillock – Empire Waltz", Id="1843296"},
+    {Name="Tom Hillock – Mama Mama", Id="1843318"},
+    {Name="Patrick Moriceau – Mystery (feat. Lucy Kitchen)", Id="1843325"},
+    {Name="Maestro João Batista Martins – Na Avenida", Id="1842514"},
+    {Name="Hallway Swimmers – Take", Id="1843414"},
+    {Name="La Fine Equipe – Relax (feat. Mattic, State of Mind)", Id="1837146"},
+    {Name="Pajaro Canzani – Bailar la Cumbia", Id="1837241"},
+    {Name="Favela Funk", Id="1841682637"},
+    {Name="Brazilian Breakout", Id="1837671480"},
+    {Name="Brazil Beats (b)", Id="1841952653"},
+    {Name="Brazilian Fiesta", Id="1839554323"},
+    {Name="God’s Plan – Drake", Id="1665926924"},
+    {Name="Black And Yellow – Wiz Khalifa", Id="139235100"},
+    {Name="Whatcha Say – Jason Derulo", Id="168208965"},
+    {Name="Stronger – Kanye West", Id="136209425"},
+    {Name="Intergalactic – Beastie Boys", Id="131603357"},
+    {Name="Let’s Get It Started – Black Eyed Peas", Id="138134680"},
+    {Name="Ooh Kill Em – Meek Mill", Id="139222895"},
+    {Name="Brazil Chill", Id="1836028384"},
+    {Name="Brazil Sound", Id="1843057112"},
+    {Name="Brazilian Opening", Id="1839553120"},
+    {Name="Caribbean Dreams", Id="1844399914"},
+    {Name="Caribbean (A)", Id="1840802599"},
+    {Name="Caribbean (C)", Id="1840802619"},
+    {Name="Caribbean Summer", Id="1836582367"},
+    {Name="Caribbean Party", Id="1843265752"},
+    {Name="Caribbean Nights (B)", Id="1846175747"},
+    {Name="Caribbean Blue 59", Id="1846143015"},
+    {Name="Caribbean Love A", Id="9043039100"},
+    {Name="Fur Elise – Beethoven", Id="450051032"},
+    {Name="Moonlight Sonata (1st Movement) – Beethoven", Id="445023353"},
+    {Name="Claire De Lune – Claude Debussy", Id="1838457617"},
+    {Name="Solo – Clean Bandit ft. Demi Lovato", Id="2106186490"},
+    {Name="Levitating – Dua Lipa", Id="6606223785"},
+    {Name="AC/DC – Thunderstruck", Id="146961487"},
+    {Name="AC/DC – Highway to Hell", Id="4728058875"},
+    {Name="Green Day – Basket Case", Id="3449839683"},
+    {Name="Linkin Park – In The End", Id="5466923389"},
+    {Name="Queen – Bohemian Rhapsody", Id="4587240503"},
+    {Name="Slipknot – Duality", Id="4849198097"},
+    {Name="System of a Down – Chop Suey!", Id="4556134799"},
+    {Name="The Rolling Stones – Paint It Black", Id="6828176320"},
+    {Name="Nirvana – Smells Like Teen Spirit", Id="3495593580"},
+    {Name="Rock Driver", Id="9044705428"},
+    {Name="Rock Energy", Id="1839404712"},
+    {Name="Rock In", Id="1839404877"},
+    {Name="I Won't Be A Rock Star", Id="1837006046"},
+    {Name="Rock Poem", Id="1846955061"},
+    {Name="Rock Support B", Id="1845789447"},
+    {Name="Hard Rock Frenzy", Id="1836088706"},
+    {Name="Rock On", Id="1839405117"},
+    {Name="Rock The Night", Id="1839529361"},
+    {Name="Rock Attack", Id="1838615551"},
+    {Name="Rock The Can-can A", Id="1847409951"},
+    {Name="Rock To Joy A", Id="1847355661"},
+    {Name="Non Stop Rock", Id="1841256357"},
+    {Name="80s Rock", Id="1837789222"},
+    {Name="Rock It", Id="1837789259"},
+    {Name="Rock Machine", Id="1845581574"},
+    {Name="Hard Rock Madness", Id="1836088493"},
+    {Name="Rock Ya Body A", Id="9043871176"},
+    {Name="Jingle Bell Rock Remix", Id="1190746274"},
+    {Name="Robot Rock (Daft Punk)", Id="6212830979"},
+    {Name="Brutal – Olivia Rodrigo", Id="6937354391"},
+    {Name="Say So – Doja Cat", Id="521116871"},
+    {Name="Bad Habits – Ed Sheeran", Id="7202579511"},
+    {Name="Money – LISA", Id="7551431783"},
+    {Name="Applause – Lady Gaga", Id="130964099"},
+    {Name="Milkshake – Kelis", Id="321199908"},
+    {Name="Meet Me At Our Spot – The Anxiety", Id="7308941449"},
+    {Name="Spooky Scary Skeletons", Id="515669032"},
+    {Name="Soft Jazz", Id="926493242"},
+    {Name="Hallelujah", Id="1846627271"},
+    {Name="NDA – Billie Eilish", Id="7079888477"},
+    {Name="Lucid Dreams – Juice WRLD", Id="8036100972"},
+    {Name="Industry Baby – Lil Nas X", Id="7253841629"},
+    {Name="Sandstorm – Darude", Id="166562385"},
+    {Name="Heat Waves – Glass Animals", Id="6432181830"},
+    {Name="Rasputin – Boney M", Id="5512350519"},
+    {Name="Butter – BTS", Id="6844912719"},
+    {Name="Trap Queen – Fetty Wap", Id="210783060"},
+    {Name="Payphone – Maroon 5", Id="131396974"},
+    {Name="Despacito – Luis Fonsi", Id="673605737"},
+    {Name="Yummy – Justin Bieber", Id="4591688095"},
+    {Name="Raining Tacos – Parry Gripp", Id="142376088"},
+    {Name="EVERYBODY DO THE FLOP", Id="130778839"},
+    {Name="When U Coming Back – NoVocals", Id="1837871067"},
+    {Name="uuhhh.wav", Id="12222242"},
+    {Name="sad violin", Id="135308045"},
+    {Name="Uptown", Id="1845554017"},
+    {Name="FEED ME!", Id="130766856"},
+    {Name="Paradise Falls", Id="1837879082"},
+    {Name="Minions – Bee Doo Bee Doo Bee Doo", Id="130844390"},
+    {Name="I've fallen, and I can't get up.", Id="130768088"},
+    {Name="WHAT ARE YOU DOING IN MY SWAMP?", Id="130767645"},
+    {Name="THIS IS SPARTA", Id="130781067"},
+    {Name="THAT'S MY PURSE", Id="130760834"},
+    {Name="Kid saying Ouch.wav", Id="12222058"},
+    {Name="piech1337 is still here", Id="7632147717"},
+    {Name="WHO'S THAT POKEMON??", Id="130767090"},
+    {Name="Robotic Dance C", Id="1847853099"},
+    {Name="I'm Batman", Id="130769318"},
+    {Name="John's Laugh", Id="130759239"},
+    {Name="when u die in minecraft", Id="2607544190"},
+    {Name="Night Vision", Id="1837849285"},
+    {Name="IT'S FREE", Id="130771265"},
+    {Name="Leeeeeeroy Jenkins", Id="130758889"},
+    {Name="Chaos", Id="1843497734"},
+    {Name="Fight Together", Id="1843324336"},
+    {Name="victory.wav", Id="12222253"},
+    {Name="No More", Id="1846458016"},
+    {Name="Dion Timmer – Shiawase", Id="5409360995"},
+    {Name="Stepping Up", Id="1837324424"},
+    {Name="Morgan Freeman: I can smell you", Id="130767611"},
+    {Name="Rain On Leaves 2 (SFX)", Id="9112854440"},
+    {Name="CUZ I MAY BE BAD BUT", Id="130767818"},
+    {Name="Tokyo Machine – PLAY", Id="5410085763"},
+    {Name="Elevator Music", Id="9119119619"},
+    {Name="fart meme", Id="4809574295"},
+    {Name="Hijacked", Id="1842559618"},
+    {Name="button.wav", Id="12221967"},
+    {Name="MLK | 30 Seconds On Race", Id="5730041707"},
+    {Name="Backrooms Ambiance (High Quality)", Id="7910582982"},
+    {Name="Lo ft Chill A", Id="9043887091"},
+    {Name="Happy Song", Id="1843404009"},
+    {Name="Phantom At The Opera", Id="1843463175"},
+    {Name="Collider (a)", Id="1841905171"},
+    {Name="Town Talk", Id="1845756489"},
+    {Name="Skeletone Deaf a", Id="1841601203"},
+    {Name="HalloweenLightning.wav", Id="12222019"},
+    {Name="Activity", Id="1842306658"},
+    {Name="Screaming", Id="567545087"},
+    {Name="Hotel Hotel Hotel Waterpark", Id="2752862458"},
+    {Name="Anime/Video game reference overload – SpiralHero", Id="12885243769"},
+    {Name="WhyÕs it so easy for you – Davi", Id="12885233572"},
+    {Name="YO MAMA – SNCKPCK", Id="11809110564"},
+    {Name="VHS VITAMINS – SNCKPCK", Id="11809103849"},
+    {Name="UnCraftableGaming – Baby Yoda", Id="11809102829"},
+    {Name="numbers – Yung Chaiboy", Id="11809065413"},
+    {Name="Looking Up – Chloe Parry", Id="11809040463"},
+    {Name="I'm Back Baby – Lil Boba", Id="11809028042"},
+    {Name="I love tater tots – GbAli", Id="11808902631"},
+    {Name="FIFA 22 – aahmek", Id="11808891048"},
+    {Name="crash bandicoot – 90tapes", Id="11808876109"},
+    {Name="chase – Yung Chaiboy", Id="11808873966"},
+    {Name="BENGALS BABY – GbAli", Id="11808871170"},
+    {Name="BACKFLIPPIN' DOGE – SNCKPCK", Id="11808870101"},
+    {Name="808s & Fortine ft. Deebruh – aahmek", Id="11808864915"},
+    {Name="roblox is down – UnCraftableGaming", Id="11793802002"},
+    {Name="Pizza – Yung Chaiboy", Id="11793514024"},
+    {Name="Chicken Nuggies Rap – Kat Padlan", Id="11793494513"},
+    {Name="Cello Suite 1 In G Major – Jack Trammell", Id="11780415090"},
+    {Name="Shotgun Showdown – Damned Anthem", Id="11780333101"},
+    {Name="Ode To Joy – Damned Anthem", Id="11780324805"},
+}
+
+-- =========================
+-- UI SETUP
+-- =========================
+local gui = Instance.new("ScreenGui", Player.PlayerGui)
+gui.Name = "PremiumBoomboxGUI"
+gui.ResetOnSpawn = false
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.fromScale(0.35, 0.45)
+main.Position = UDim2.fromScale(0.325, 0.275)
+main.BackgroundTransparency = 1
+main.ClipsDescendants = true
+
+-- Background
+local bg = Instance.new("Frame", main)
+bg.Size = UDim2.fromScale(1,1)
+bg.BackgroundColor3 = Color3.fromRGB(30,30,30)
+bg.BackgroundTransparency = 0.2
+bg.BorderSizePixel = 0
+Instance.new("UICorner", bg).CornerRadius = UDim.new(0,15)
+
+local gradient = Instance.new("UIGradient", bg)
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40,40,40)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(25,25,25))
+}
+
+-- Title
+local title = Instance.new("TextLabel", bg)
+title.Size = UDim2.new(1, -80, 0, 40)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.Text = "🎵 Premium Boombox"
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Close Button
+local close = Instance.new("TextButton", bg)
+close.Size = UDim2.new(0, 35, 0, 30)
+close.Position = UDim2.new(1, -40, 0, 5)
+close.Text = "X"
+close.Font = Enum.Font.GothamBold
+close.TextSize = 16
+close.TextColor3 = Color3.fromRGB(255,80,80)
+close.BackgroundTransparency = 1
+
+-- Minimize Button
+local mini = Instance.new("TextButton", bg)
+mini.Size = UDim2.new(0, 35, 0, 30)
+mini.Position = UDim2.new(1, -80, 0, 5)
+mini.Text = "-"
+mini.Font = Enum.Font.GothamBold
+mini.TextSize = 20
+mini.TextColor3 = Color3.fromRGB(255,255,255)
+mini.BackgroundTransparency = 1
+
+-- Search Box
+local search = Instance.new("TextBox", bg)
+search.Size = UDim2.new(1, -20, 0, 35)
+search.Position = UDim2.new(0,10,0,45)
+search.PlaceholderText = "Search music..."
+search.Text = ""
+search.Font = Enum.Font.Gotham
+search.TextSize = 14
+search.TextColor3 = Color3.fromRGB(255,255,255)
+search.BackgroundColor3 = Color3.fromRGB(40,40,40)
+search.BorderSizePixel = 0
+Instance.new("UICorner", search).CornerRadius = UDim.new(0,8)
+
+-- Scroll List
+local list = Instance.new("ScrollingFrame", bg)
+list.Position = UDim2.new(0, 10, 0, 90)
+list.Size = UDim2.new(1, -20, 1, -100)
+list.BackgroundTransparency = 1
+list.ScrollBarImageTransparency = 0.6
+
+local layout = Instance.new("UIListLayout", list)
+layout.Padding = UDim.new(0,6)
+
+-- Sound
+local sound = Instance.new("Sound", workspace)
+sound.Volume = 2
+
+-- =========================
+-- FUNCTIONS
+-- =========================
+local function clearList()
+    for _, v in pairs(list:GetChildren()) do
+        if v:IsA("Frame") then
+            v:Destroy()
+        end
+    end
+end
+
+local selectedTrack = nil
+
+local function createButton(info)
+    local frame = Instance.new("Frame", list)
+    frame.Size = UDim2.new(1,0,0,40)
+    frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    frame.BorderSizePixel = 0
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0,8)
+
+    local label = Instance.new("TextLabel", frame)
+    label.Size = UDim2.new(0.7,0,1,0)
+    label.Position = UDim2.new(0,5,0,0)
+    label.Text = info.Name
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 14
+    label.BackgroundTransparency = 1
+    label.TextXAlignment = Enum.TextXAlignment.Left
+
+    local copyBtn = Instance.new("TextButton", frame)
+    copyBtn.Size = UDim2.new(0.3, -5, 1, -5)
+    copyBtn.Position = UDim2.new(0.7,5,0,2)
+    copyBtn.Text = "Copy ID"
+    copyBtn.Font = Enum.Font.GothamBold
+    copyBtn.TextSize = 14
+    copyBtn.TextColor3 = Color3.fromRGB(255,255,255)
+    copyBtn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+    Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0,6)
+
+    copyBtn.MouseEnter:Connect(function()
+        TweenService:Create(copyBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(100,100,100)}):Play()
+    end)
+    copyBtn.MouseLeave:Connect(function()
+        TweenService:Create(copyBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(70,70,70)}):Play()
+    end)
+
+    copyBtn.MouseButton1Click:Connect(function()
+        setclipboard(info.Id)
+        frame.BackgroundColor3 = Color3.fromRGB(70,130,180)
+        wait(0.3)
+        frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    end)
+
+    frame.MouseButton1Click:Connect(function()
+        if selectedTrack then
+            selectedTrack.BackgroundColor3 = Color3.fromRGB(35,35,35)
+        end
+        selectedTrack = frame
+        frame.BackgroundColor3 = Color3.fromRGB(60,60,60)
+    end)
+end
+
+local function refreshList()
+    clearList()
+    local query = search.Text:lower()
+    for _, info in pairs(MusicLibrary) do
+        if info.Name:lower():find(query) then
+            createButton(info)
+        end
+    end
+end
+
+search:GetPropertyChangedSignal("Text"):Connect(refreshList)
+refreshList()
+
+-- =========================
+-- CLOSE / MINIMIZE
+-- =========================
+close.MouseButton1Click:Connect(function()
+    gui.Enabled = false
+end)
+
+mini.MouseButton1Click:Connect(function()
+    bg.Size = UDim2.new(0,200,0,30)
+    list.Visible = false
+    search.Visible = false
+end)
+
+-- =========================
+-- DRAGGABLE
+-- =========================
+local dragging = false
+local dragInput, mousePos, framePos
+
+bg.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        mousePos = input.Position
+        framePos = bg.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+bg.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - mousePos
+        bg.Position = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+    end
+end)
+    {Name="Caribbean Nights (B)", Id="1846175747"},
+    {Name="Caribbean Blue 59", Id="1846143015"},
+    {Name="Caribbean Love A", Id="9043039100"},
+    {Name="Fur Elise – Beethoven", Id="450051032"},
+    {Name="Moonlight Sonata (1st Movement) – Beethoven", Id="445023353"},
+    {Name="Claire De Lune – Claude Debussy", Id="1838457617"},
+    {Name="Solo – Clean Bandit ft. Demi Lovato", Id="2106186490"},
+    {Name="Levitating – Dua Lipa", Id="6606223785"},
+    {Name="AC/DC – Thunderstruck", Id="146961487"},
+    {Name="AC/DC – Highway to Hell", Id="4728058875"},
+    {Name="Green Day – Basket Case", Id="3449839683"},
+    {Name="Linkin Park – In The End", Id="5466923389"},
+    {Name="Queen – Bohemian Rhapsody", Id="4587240503"},
+    {Name="Slipknot – Duality", Id="4849198097"},
+    {Name="System of a Down – Chop Suey!", Id="4556134799"},
+    {Name="The Rolling Stones – Paint It Black", Id="6828176320"},
+    {Name="Nirvana – Smells Like Teen Spirit", Id="3495593580"},
+    {Name="Rock Driver", Id="9044705428"},
+    {Name="Rock Energy", Id="1839404712"},
+    {Name="Rock In", Id="1839404877"},
+    {Name="I Won't Be A Rock Star", Id="1837006046"},
+    {Name="Rock Poem", Id="1846955061"},
+    {Name="Rock Support B", Id="1845789447"},
+    {Name="Hard Rock Frenzy", Id="1836088706"},
+    {Name="Rock On", Id="1839405117"},
+    {Name="Rock The Night", Id="1839529361"},
+    {Name="Rock Attack", Id="1838615551"},
+    {Name="Rock The Can-can A", Id="1847409951"},
+    {Name="Rock To Joy A", Id="1847355661"},
+    {Name="Non Stop Rock", Id="1841256357"},
+    {Name="80s Rock", Id="1837789222"},
+    {Name="Rock It", Id="1837789259"},
+    {Name="Rock Machine", Id="1845581574"},
+    {Name="Hard Rock Madness", Id="1836088493"},
+    {Name="Rock Ya Body A", Id="9043871176"},
+    {Name="Jingle Bell Rock Remix", Id="1190746274"},
+    {Name="Robot Rock (Daft Punk)", Id="6212830979"},
+    {Name="Brutal – Olivia Rodrigo", Id="6937354391"},
+    {Name="Say So – Doja Cat", Id="521116871"},
+    {Name="Bad Habits – Ed Sheeran", Id="7202579511"},
+    {Name="Money – LISA", Id="7551431783"},
+    {Name="Applause – Lady Gaga", Id="130964099"},
+    {Name="Milkshake – Kelis", Id="321199908"},
+    {Name="Meet Me At Our Spot – The Anxiety", Id="7308941449"},
+    {Name="Spooky Scary Skeletons", Id="515669032"},
+    {Name="Soft Jazz", Id="926493242"},
+    {Name="Hallelujah", Id="1846627271"},
+    {Name="NDA – Billie Eilish", Id="7079888477"},
+    {Name="Lucid Dreams – Juice WRLD", Id="8036100972"},
+    {Name="Industry Baby – Lil Nas X", Id="7253841629"},
+    {Name="Sandstorm – Darude", Id="166562385"},
+    {Name="Heat Waves – Glass Animals", Id="6432181830"},
+    {Name="Rasputin – Boney M", Id="5512350519"},
+    {Name="Butter – BTS", Id="6844912719"},
+    {Name="Trap Queen – Fetty Wap", Id="210783060"},
+    {Name="Payphone – Maroon 5", Id="131396974"},
+    {Name="Despacito – Luis Fonsi", Id="673605737"},
+    {Name="Yummy – Justin Bieber", Id="4591688095"},
+    {Name="Raining Tacos – Parry Gripp", Id="142376088"},
+    {Name="EVERYBODY DO THE FLOP", Id="130778839"},
+    {Name="When U Coming Back – NoVocals", Id="1837871067"},
+    {Name="uuhhh.wav", Id="12222242"},
+    {Name="sad violin", Id="135308045"},
+    {Name="Uptown", Id="1845554017"},
+    {Name="FEED ME!", Id="130766856"},
+    {Name="Paradise Falls", Id="1837879082"},
+    {Name="Minions – Bee Doo Bee Doo Bee Doo", Id="130844390"},
+    {Name="I've fallen, and I can't get up.", Id="130768088"},
+    {Name="WHAT ARE YOU DOING IN MY SWAMP?", Id="130767645"},
+    {Name="THIS IS SPARTA", Id="130781067"},
+    {Name="THAT'S MY PURSE", Id="130760834"},
+    {Name="Kid saying Ouch.wav", Id="12222058"},
+    {Name="piech1337 is still here", Id="7632147717"},
+    {Name="WHO'S THAT POKEMON??", Id="130767090"},
+    {Name="Robotic Dance C", Id="1847853099"},
+    {Name="I'm Batman", Id="130769318"},
+    {Name="John's Laugh", Id="130759239"},
+    {Name="when u die in minecraft", Id="2607544190"},
+    {Name="Night Vision", Id="1837849285"},
+    {Name="IT'S FREE", Id="130771265"},
+    {Name="Leeeeeeroy Jenkins", Id="130758889"},
+    {Name="Chaos", Id="1843497734"},
+    {Name="Fight Together", Id="1843324336"},
+    {Name="victory.wav", Id="12222253"},
+    {Name="No More", Id="1846458016"},
+    {Name="Dion Timmer – Shiawase", Id="5409360995"},
+    {Name="Stepping Up", Id="1837324424"},
+    {Name="Morgan Freeman: I can smell you", Id="130767611"},
+    {Name="Rain On Leaves 2 (SFX)", Id="9112854440"},
+    {Name="CUZ I MAY BE BAD BUT", Id="130767818"},
+    {Name="Tokyo Machine – PLAY", Id="5410085763"},
+    {Name="Elevator Music", Id="9119119619"},
+    {Name="fart meme", Id="4809574295"},
+    {Name="Hijacked", Id="1842559618"},
+    {Name="button.wav", Id="12221967"},
+    {Name="MLK | 30 Seconds On Race", Id="5730041707"},
+    {Name="Backrooms Ambiance (High Quality)", Id="7910582982"},
+    {Name="Lo ft Chill A", Id="9043887091"},
+    {Name="Happy Song", Id="1843404009"},
+    {Name="Phantom At The Opera", Id="1843463175"},
+    {Name="Collider (a)", Id="1841905171"},
+    {Name="Town Talk", Id="1845756489"},
+    {Name="Skeletone Deaf a", Id="1841601203"},
+    {Name="HalloweenLightning.wav", Id="12222019"},
+    {Name="Activity", Id="1842306658"},
+    {Name="Screaming", Id="567545087"},
+    {Name="Hotel Hotel Hotel Waterpark", Id="2752862458"},
+    {Name="Anime/Video game reference overload – SpiralHero", Id="12885243769"},
+    {Name="WhyÕs it so easy for you – Davi", Id="12885233572"},
+    {Name="YO MAMA – SNCKPCK", Id="11809110564"},
+    {Name="VHS VITAMINS – SNCKPCK", Id="11809103849"},
+    {Name="UnCraftableGaming – Baby Yoda", Id="11809102829"},
+    {Name="numbers – Yung Chaiboy", Id="11809065413"},
+    {Name="Looking Up – Chloe Parry", Id="11809040463"},
+    {Name="I'm Back Baby – Lil Boba", Id="11809028042"},
+    {Name="I love tater tots – GbAli", Id="11808902631"},
+    {Name="FIFA 22 – aahmek", Id="11808891048"},
+    {Name="crash bandicoot – 90tapes", Id="11808876109"},
+    {Name="chase – Yung Chaiboy", Id="11808873966"},
+    {Name="BENGALS BABY – GbAli", Id="11808871170"},
+    {Name="BACKFLIPPIN' DOGE – SNCKPCK", Id="11808870101"},
+    {Name="808s & Fortine ft. Deebruh – aahmek", Id="11808864915"},
+    {Name="roblox is down – UnCraftableGaming", Id="11793802002"},
+    {Name="Pizza – Yung Chaiboy", Id="11793514024"},
+    {Name="Chicken Nuggies Rap – Kat Padlan", Id="11793494513"},
+    {Name="Cello Suite 1 In G Major – Jack Trammell", Id="11780415090"},
+    {Name="Shotgun Showdown – Damned Anthem", Id="11780333101"},
+    {Name="Ode To Joy – Damned Anthem", Id="11780324805"},
+}
+
+-- =========================
+-- UI SETUP
+-- =========================
+local gui = Instance.new("ScreenGui", Player.PlayerGui)
+gui.Name = "PremiumBoomboxGUI"
+gui.ResetOnSpawn = false
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.fromScale(0.35, 0.45)
+main.Position = UDim2.fromScale(0.325, 0.275)
+main.BackgroundTransparency = 1
+main.ClipsDescendants = true
+
+-- Background
+local bg = Instance.new("Frame", main)
+bg.Size = UDim2.fromScale(1,1)
+bg.BackgroundColor3 = Color3.fromRGB(30,30,30)
+bg.BackgroundTransparency = 0.2
+bg.BorderSizePixel = 0
+Instance.new("UICorner", bg).CornerRadius = UDim.new(0,15)
+
+local gradient = Instance.new("UIGradient", bg)
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40,40,40)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(25,25,25))
+}
+
+-- Title
+local title = Instance.new("TextLabel", bg)
+title.Size = UDim2.new(1, -80, 0, 40)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.Text = "🎵 Premium Boombox"
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Close Button
+local close = Instance.new("TextButton", bg)
+close.Size = UDim2.new(0, 35, 0, 30)
+close.Position = UDim2.new(1, -40, 0, 5)
+close.Text = "X"
+close.Font = Enum.Font.GothamBold
+close.TextSize = 16
+close.TextColor3 = Color3.fromRGB(255,80,80)
+close.BackgroundTransparency = 1
+
+-- Minimize Button
+local mini = Instance.new("TextButton", bg)
+mini.Size = UDim2.new(0, 35, 0, 30)
+mini.Position = UDim2.new(1, -80, 0, 5)
+mini.Text = "-"
+mini.Font = Enum.Font.GothamBold
+mini.TextSize = 20
+mini.TextColor3 = Color3.fromRGB(255,255,255)
+mini.BackgroundTransparency = 1
+
+-- Search Box
+local search = Instance.new("TextBox", bg)
+search.Size = UDim2.new(1, -20, 0, 35)
+search.Position = UDim2.new(0,10,0,45)
+search.PlaceholderText = "Search music..."
+search.Text = ""
+search.Font = Enum.Font.Gotham
+search.TextSize = 14
+search.TextColor3 = Color3.fromRGB(255,255,255)
+search.BackgroundColor3 = Color3.fromRGB(40,40,40)
+search.BorderSizePixel = 0
+Instance.new("UICorner", search).CornerRadius = UDim.new(0,8)
+
+-- Scroll List
+local list = Instance.new("ScrollingFrame", bg)
+list.Position = UDim2.new(0, 10, 0, 90)
+list.Size = UDim2.new(1, -20, 1, -100)
+list.BackgroundTransparency = 1
+list.ScrollBarImageTransparency = 0.6
+
+local layout = Instance.new("UIListLayout", list)
+layout.Padding = UDim.new(0,6)
+
+-- Sound
+local sound = Instance.new("Sound", workspace)
+sound.Volume = 2
+
+-- =========================
+-- FUNCTIONS
+-- =========================
+local function clearList()
+    for _, v in pairs(list:GetChildren()) do
+        if v:IsA("Frame") then
+            v:Destroy()
+        end
+    end
+end
+
+local selectedTrack = nil
+
+local function createButton(info)
+    local frame = Instance.new("Frame", list)
+    frame.Size = UDim2.new(1,0,0,40)
+    frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    frame.BorderSizePixel = 0
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0,8)
+
+    local label = Instance.new("TextLabel", frame)
+    label.Size = UDim2.new(0.7,0,1,0)
+    label.Position = UDim2.new(0,5,0,0)
+    label.Text = info.Name
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 14
+    label.BackgroundTransparency = 1
+    label.TextXAlignment = Enum.TextXAlignment.Left
+
+    local copyBtn = Instance.new("TextButton", frame)
+    copyBtn.Size = UDim2.new(0.3, -5, 1, -5)
+    copyBtn.Position = UDim2.new(0.7,5,0,2)
+    copyBtn.Text = "Copy ID"
+    copyBtn.Font = Enum.Font.GothamBold
+    copyBtn.TextSize = 14
+    copyBtn.TextColor3 = Color3.fromRGB(255,255,255)
+    copyBtn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+    Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0,6)
+
+    copyBtn.MouseEnter:Connect(function()
+        TweenService:Create(copyBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(100,100,100)}):Play()
+    end)
+    copyBtn.MouseLeave:Connect(function()
+        TweenService:Create(copyBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(70,70,70)}):Play()
+    end)
+
+    copyBtn.MouseButton1Click:Connect(function()
+        setclipboard(info.Id)
+        frame.BackgroundColor3 = Color3.fromRGB(70,130,180)
+        wait(0.3)
+        frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    end)
+
+    frame.MouseButton1Click:Connect(function()
+        if selectedTrack then
+            selectedTrack.BackgroundColor3 = Color3.fromRGB(35,35,35)
+        end
+        selectedTrack = frame
+        frame.BackgroundColor3 = Color3.fromRGB(60,60,60)
+    end)
+end
+
+local function refreshList()
+    clearList()
+    local query = search.Text:lower()
+    for _, info in pairs(MusicLibrary) do
+        if info.Name:lower():find(query) then
+            createButton(info)
+        end
+    end
+end
+
+search:GetPropertyChangedSignal("Text"):Connect(refreshList)
+refreshList()
+
+-- =========================
+-- CLOSE / MINIMIZE
+-- =========================
+close.MouseButton1Click:Connect(function()
+    gui.Enabled = false
+end)
+
+mini.MouseButton1Click:Connect(function()
+    bg.Size = UDim2.new(0,200,0,30)
+    list.Visible = false
+    search.Visible = false
+end)
+
+-- =========================
+-- DRAGGABLE
+-- =========================
+local dragging = false
+local dragInput, mousePos, framePos
+
+bg.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        mousePos = input.Position
+        framePos = bg.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+bg.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - mousePos
+        bg.Position = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+    end
+end)
 {Name="Brazil Chill", ID="1836028384"},
 {Name="Brazil Sound", ID="1843057112"},
 {Name="Brazilian Opening", ID="1839553120"},
